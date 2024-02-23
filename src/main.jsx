@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import { WithoutQuery } from "./pages/WithoutQuery.jsx";
 import { WithQuery } from "./pages/WithQuery.jsx";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   { path: "", element: <App /> },
@@ -12,8 +13,12 @@ const router = createBrowserRouter([
   { path: "withquery", element: <WithQuery /> },
 ]);
 
+const client = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={client}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 );
