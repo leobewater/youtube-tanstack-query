@@ -1,14 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+
+const getPost = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  return res.json();
+};
 
 export const WithQuery = () => {
   const { isPending, error, data } = useQuery({
     // queryKey - unique identifier for each query
     queryKey: ["posts"],
     // queryFn: function to handle fetching
-    queryFn: async () => {
-      const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-      return res.json();
-    },
+    // queryFn: async () => {
+    //   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    //   return res.json();
+    // },
+    queryFn: getPost,
+    staleTime: 10000, // stay fresh for 10s then goes stale
+    refetchOnWindowFocus: true, // default is true
   });
 
   if (isPending) {
@@ -29,6 +38,9 @@ export const WithQuery = () => {
 
   return (
     <div className="m-4 max-w-[600px] w-4/5 mx-auto">
+      <Link to="/withoutquery" className="text-white underline">
+        Go to Without Query Page
+      </Link>
       <h1 className="text-3xl text-center my-8 font-bold text-gray-400">
         Posts Data
       </h1>

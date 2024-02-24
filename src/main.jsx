@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import { WithoutQuery } from "./pages/WithoutQuery.jsx";
 import { WithQuery } from "./pages/WithQuery.jsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const router = createBrowserRouter([
   { path: "", element: <App /> },
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={client}>
       <RouterProvider router={router} />
+      <ReactQueryDevtools />
     </QueryClientProvider>
   </React.StrictMode>
 );
