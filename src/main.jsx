@@ -6,12 +6,17 @@ import App from "./App.jsx";
 import { WithoutQuery } from "./pages/WithoutQuery.jsx";
 import { WithQuery } from "./pages/WithQuery.jsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Post from "./pages/Post.jsx";
 
 const router = createBrowserRouter([
   { path: "", element: <App /> },
   { path: "/withoutquery", element: <WithoutQuery /> },
   { path: "withquery", element: <WithQuery /> },
+  {
+    path: "/withquery/:id",
+    element: <Post />,
+  },
 ]);
 
 const client = new QueryClient();

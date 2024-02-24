@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const getPost = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  return res.json();
+  return await res.json();
 };
 
 export const WithQuery = () => {
@@ -47,15 +47,16 @@ export const WithQuery = () => {
       {data &&
         data.map((post) => {
           return (
-            <div
+            <Link
               key={post.id}
-              className="p-4 rounded-lg border border-gray-200 my-6 cursor-pointer hover:bg-gray-900"
+              className="block p-4 rounded-lg border border-gray-200 my-6 cursor-pointer hover:bg-gray-900"
+              to={`/withquery/${post.id}`}
             >
               <h2 className="font-bold text-lg mb-2 text-gray-400">
                 {post.title}
               </h2>
               <p className="text-gray-400">{post.body}</p>
-            </div>
+            </Link>
           );
         })}
     </div>
