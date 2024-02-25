@@ -37,7 +37,7 @@ const Post = () => {
   } = useQuery({
     queryKey: ["comments"],
     queryFn: () => getComments(data.id),
-    enabled: !isPending, // depends on posts query
+    enabled: !isPending, // depends on posts query and avoid running two queries in parallel
   });
 
   if (isPending) {

@@ -19,7 +19,16 @@ const router = createBrowserRouter([
   },
 ]);
 
-const client = new QueryClient();
+const client = new QueryClient({
+  // We can define the retryDetail at the client level for all queries
+  /*
+  defaultOptions: {
+    queries: {
+      retryDelay: 2000
+    }
+  }
+  */
+});
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

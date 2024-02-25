@@ -35,7 +35,7 @@ export const WithQuery = () => {
         queryFn: getUsers
       });
   */
-  
+
   // fetch two queries in parallel
   const [
     { isPending, error, data },
@@ -43,7 +43,12 @@ export const WithQuery = () => {
   ] = useQueries({
     queries: [
       { queryKey: ["posts"], queryFn: getPosts },
-      { queryKey: ["users"], queryFn: getUsers },
+      {
+        queryKey: ["users"],
+        queryFn: getUsers,
+        // retry: 4,
+        // retryDelay: 2000,
+      }, // default retry is 3, by default retry doulbe the delay between each retry. You can specify the retryDelay without doubling each retry.
     ],
   });
 
