@@ -1,12 +1,22 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueries } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
-const getPost = async () => {
+const getPosts = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
   return await res.json();
 };
 
+const getUsers = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  if (!res.ok) {
+    throw new Error("There was an error!");
+  }
+  return await res.json();
+};
+
 export const WithQuery = () => {
+  /*
+  // fetching posts and users side by side
   const { isPending, error, data } = useQuery({
     // queryKey - unique identifier for each query
     queryKey: ["posts"],
@@ -15,9 +25,26 @@ export const WithQuery = () => {
     //   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
     //   return res.json();
     // },
-    queryFn: getPost,
+    queryFn: getPosts,
     staleTime: 10000, // stay fresh for 10s then goes stale
     refetchOnWindowFocus: true, // default is true
+  });
+
+    const { isPending: isUsersPending, error: usersError, data: users } = useQuery({
+        queryKey: ['users'],
+        queryFn: getUsers
+      });
+  */
+  
+  // fetch two queries in parallel
+  const [
+    { isPending, error, data },
+    { isPending: isUsersPending, error: usersError, data: users },
+  ] = useQueries({
+    queries: [
+      { queryKey: ["posts"], queryFn: getPosts },
+      { queryKey: ["users"], queryFn: getUsers },
+    ],
   });
 
   if (isPending) {
