@@ -1,35 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Link } from "react-router-dom";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="text-white text-left">
+        <h1 className="text-white text-3xl font-bold mb-6">Tanstack Query:</h1>
+        <ul>
+          <li>
+            <Link to={`/withoutquery`}>Without Query</Link>
+          </li>
+          <li>
+            <Link to={`/withquery`}>With Query</Link>
+          </li>
+          <li>
+            <Link to={`/withquerypagination`}>With Query Pagination</Link>
+          </li>
+          <li>
+            <Link to={`/withinfinitequery`}>With Infinite Query</Link>
+          </li>
+        </ul>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

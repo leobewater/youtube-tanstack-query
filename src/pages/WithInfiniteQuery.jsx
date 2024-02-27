@@ -2,6 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+
 const getPosts = async (page) => {
   console.log(page);
   const res = await fetch(
@@ -21,6 +22,7 @@ export const WithInfiniteQuery = () => {
     data,
     isFetching,
     fetchNextPage,
+    isFetchingNextPage,
     hasNextPage,
   } = useInfiniteQuery({
     queryKey: ["posts"],
@@ -33,8 +35,11 @@ export const WithInfiniteQuery = () => {
   });
 
   useEffect(() => {
+    console.log("Is in view?", inView);
+
     if (inView) fetchNextPage();
   }, [inView]);
+
   const posts = data ? data.pages.flatMap((page) => page) : [];
 
   if (isPending) {
@@ -82,11 +87,6 @@ export const WithInfiniteQuery = () => {
       </div>
       {hasNextPage && <div ref={ref} className="h-4 w-full bg-blue-200"></div>}
       {/* {hasNextPage && <button disabled={isFetchingNextPage} className='px-3 py-1 bg-blue-500 rounded-md text-white font-bold' onClick={() => fetchNextPage()}>Load more</button>} */}
-      {/* <div className='flex items-center justify-center gap-2'>
-                <button className='px-3 py-1 bg-blue-500 rounded-md text-white font-bold' onClick={() => setPage(prev => prev > 1 ? prev - 1 : 1)}>Prev</button>
-                <p className='text-gray-100'>Current page: {page}</p>
-                <button className='px-3 py-1 bg-blue-500 rounded-md text-white font-bold' onClick={() => setPage(prev => prev + 1)}>Next</button>
-            </div> */}
     </div>
   );
 };
