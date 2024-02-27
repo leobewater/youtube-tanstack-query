@@ -19,7 +19,7 @@ export const WithQueryPagination = () => {
     queryKey: ["posts", page],
     queryFn: () => getPosts(page),
     staleTime: 10000,
-    placeholderData: keepPreviousData,
+    placeholderData: keepPreviousData, // with this, fetch the new data in the backround without showing the loading "screen"
   });
 
   if (isPending) {
